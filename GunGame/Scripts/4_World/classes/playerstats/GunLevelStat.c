@@ -2,7 +2,7 @@ class GunLevelStat extends PlayerStatBase
 {
 	protected int		level = 0;
 	protected string 	label;
-	protected GunGameManager gunGameManager;
+	protected WeaponCreationManager gunGameManager;
 	
 	void GunLevelStat( string label)
 	{
@@ -14,11 +14,11 @@ class GunLevelStat extends PlayerStatBase
 		m_Type = id;
 	}
 
-    void SetGunGameManager(GunGameManager manager)
+    void SetWeaponCreationManager(WeaponCreationManager manager)
     {
         if(gunGameManager)
         {
-            Error2("GunGame","GunLevelStat has already a reference to GunGameManager")
+            Error2("GunGame","GunLevelStat has already a reference to GunGameManager");
             return;
         }
 
@@ -45,10 +45,10 @@ class GunLevelStat extends PlayerStatBase
         if(!gunGameManager)
         {
             Error2("GunGame","GunGameManager is invalid");
-            return -1
+            return -1;
         }
 
-        return gunGameManager.GetLevels();
+        return gunGameManager.WeaponCount();
     }
 
 	override float Get()

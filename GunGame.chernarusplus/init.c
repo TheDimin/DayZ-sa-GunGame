@@ -41,5 +41,6 @@ void main()
 
 Mission CreateCustomMission(string path)
 {
-	return new GunGameMP();
+	GunGameMP gunGame = new GunGameMP();
+	return gunGame;
 }

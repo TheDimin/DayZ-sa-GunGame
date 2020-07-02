@@ -1,6 +1,5 @@
 // Quick version should do the magic
 //modded class FirearmActionAttachMagazine 
-
 modded class FirearmActionAttachMagazineQuick
 {
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item ) //condition for action
@@ -24,6 +23,6 @@ modded class FirearmActionAttachMagazineQuick
 
 		mag.LocalSetAmmoMax();
 		pushToChamberFromAttachedMagazine( weapon, weapon.GetCurrentMuzzle() );
-		//action_data.m_Player.GetWeaponManager().SwapMagazine(mag, this);
+		action_data.m_Player.GetWeaponManager().SwapMagazine(mag, this);
 	}
 }

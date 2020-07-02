@@ -1,27 +1,15 @@
-class GunLevel extends Managed
+class GunLevel : Managed
 {
-    string weaponName = "NONE";
-    string magName = "NONE";
-    ref array<string> attachmentNames;
+    string weapon = "NONE";
+    string mag = "NONE";
+    ref array<string> attachments = new array<string>();
+
+    int kills = 1;
 
     void GunLevel(string _WeaponName, string _MagName, array<string> _Attachments)
     {
-        weaponName = _WeaponName;
-        attachmentNames = _Attachments;
-
-        if(_MagName == "")
-        {
-            magName = GetAmmoType();
-        }
-        else
-        {
-            magName = _MagName;
-        }
-    }
-
-
-    string GetAmmoType()
-    {
-        return "";
+        weapon = _WeaponName;
+        attachments = _Attachments;
+        mag = _MagName;
     }
 }

@@ -25,7 +25,7 @@ modded class NotifiersManager
 
         //bit whack but only way i can think of disabling UI elements 
         //Would perfer not to touch the constructor so game updates changing it will work (Same for other mods)
-
+		//TODO: i don't think this works
         VirtualHud hud = GetVirtualHud();
         if(hud)
         {

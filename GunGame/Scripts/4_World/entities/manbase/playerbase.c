@@ -16,4 +16,16 @@ modded class PlayerBase
             Print("ButtonPressed?");
         }
     }
+
+#ifndef GG_Debug
+    override bool IsInventoryVisible()
+	{
+		return false;
+	}
+
+    bool CanManipulateInventory()
+	{
+         return false;
+	}
+#endif
 }

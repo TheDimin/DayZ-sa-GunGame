@@ -1,0 +1,90 @@
+
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Kill dayz",
+            "type": "shell",
+            "command": "taskkill",
+            "args": [
+                "/F",
+                "/FI",
+                "IMAGENAME eq DayZDiag_x64.exe"
+            ]
+        },
+        {
+            "label": "Pack pbos",
+            "type": "shell",
+            "command": "E:/GameLaunchers/Steam/steamapps/common/DayZ Tools/Bin/AddonBuilder/AddonBuilder.exe",
+            "args": [
+                "P:/GunGame/GunGame",
+                "P:/GunGame/@GunGame/Addons",
+                "-clear",
+                "-sign=P:/GunGame/Tools/Keys/TheDiminGunGamePKEY.biprivatekey",
+                "-include=P:/GunGame/Tools/Includes.txt"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "Kill dayz"
+            ]
+        },
+        {
+            "label": "StartServer",
+            "type": "shell",
+            "command": "C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/DayZDiag_x64",
+            "args": [
+                "-config=P:\\GunGame\\Tools\\serverDZ.cfg",
+                "-server",
+                "-profiles=C:\\Users\\DPHoo\\Documents\\DayZ Other Profiles",
+                "-mission=P:/GunGame/GunGame.chernarusplus",
+                "-mod=P:/GunGame/@GunGame;"
+            ],
+            "group": "none",
+            "problemMatcher": []
+        },
+        {
+            "label": "StartClient",
+            "type": "shell",
+            "command": "C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/DayZDiag_x64",
+            "args": [
+                "-filepatching",
+                "-window",
+                "-noPause",
+                "-nosplash",
+                "-mod=P:/GunGame/@GunGame;",
+                "-connect=localhost",
+                "-port=2302"
+            ],
+            "group": "none"
+        },
+        {
+            "label": "Launch",
+            "detail": "Launch client and server",
+            "dependsOn": [
+                "StartServer",
+                "StartClient"
+            ],
+            "dependsOrder": "parallel"
+        },
+        {
+            "label": "Build and launch",
+            "type": "shell",
+            "command": "echo Finshed Build and launch",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Pack pbos",
+                "Launch"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
