@@ -42,7 +42,7 @@
                 "-server",
                 "-profiles=C:\\Users\\DPHoo\\Documents\\DayZ Other Profiles",
                 "-mission=P:/GunGame/GunGame.chernarusplus",
-                "-mod=P:/GunGame/@GunGame;"
+                "-mod=C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/!dzsal/@CF;P:/GunGame/@GunGame;"
             ],
             "group": "none",
             "problemMatcher": []
@@ -52,11 +52,11 @@
             "type": "shell",
             "command": "C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/DayZDiag_x64",
             "args": [
-                "-filepatching",
+                //"-filepatching",
                 "-window",
                 "-noPause",
                 "-nosplash",
-                "-mod=P:/GunGame/@GunGame;",
+                "-mod=C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/!dzsal/@CF;P:/GunGame/@GunGame;",
                 "-connect=localhost",
                 "-port=2302"
             ],

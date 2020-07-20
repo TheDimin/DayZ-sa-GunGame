@@ -1,11 +1,11 @@
 class MapLocation : Managed
 {
-    string DisplayName;
-    ref array<string> Locations = new array<string>();
+    string LocationName = "Null";
+    protected ref array<string> SpawnPoints = new array<string>();
 
     array<string> GetLocations()
     {
-        return Locations;
+        return SpawnPoints;
     }
 }
 

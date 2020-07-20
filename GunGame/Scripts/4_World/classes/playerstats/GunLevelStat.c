@@ -1,42 +1,37 @@
+enum EGunGameStats : EPlayerStats_current
+{
+	GUNLEVEL,
+	KILLCOUNT
+}
+
 class GunLevelStat extends PlayerStatBase
 {
-	protected int		level = 0;
-	protected string 	label;
+	protected int		m_value = 0;
 	protected WeaponCreationManager gunGameManager;
+	ref ScriptInvoker EventOnLastLvlFinished = new ScriptInvoker();
 	
-	void GunLevelStat( string label)
+	void GunLevelStat(WeaponCreationManager manager)
 	{
-		label 	= label;
+		gunGameManager = manager;
+	}
+
+	void ~GunLevelStat()
+	{
+		delete EventOnLastLvlFinished;
 	}
 		
 	override void Init(int id)
 	{
-		m_Type = id;
-	}
-
-    void SetWeaponCreationManager(WeaponCreationManager manager)
-    {
-        if(gunGameManager)
-        {
-            Error2("GunGame","GunLevelStat has already a reference to GunGameManager");
-            return;
-        }
-
-        gunGameManager = manager;   
-    }
-	
-	override void SerializeValue(array<ref StatDebugObject> objects, int flags)
-	{
-		objects.Insert( new StatDebugObject(GetLabel(), Get(), eRemoteStatType.PLAYER_STATS) );
+		m_Type = EGunGameStats.GUNLEVEL;
 	}
 
 	void Increase()
 	{
-        level++;
+        m_value++;
 
-		if( level > GetMaxLevel() )
+		if( m_value > GetMaxLevel() )
 		{
-			//TODO
+			EventOnLastLvlFinished.Invoke();
 		}
 	}
 
@@ -51,37 +46,25 @@ class GunLevelStat extends PlayerStatBase
         return gunGameManager.WeaponCount();
     }
 
+	void SetByFloat(float value)
+	{
+		if(m_value == 0)
+		{
+			m_value = value;
+		}
+		else
+		{
+			Print("Value was already set");
+		}
+	}
+
 	override float Get()
 	{
-		return level;
+		return m_value;
 	}
 	
 	override string GetLabel()
 	{
-		return label;
-	}
-	
-	override array<PlayerStatRecord> GetRecords()
-	{
-		return null;
-	}
-	
-	override void OnStoreSave( ParamsWriteContext ctx )
-	{   
-		ctx.Write(level);
-	}
-
-	override bool OnStoreLoad( ParamsReadContext ctx)
-	{
-		int value;
-		if(ctx.Read(value))
-		{
-			level = value;
-		}
-		else
-		{
-			return false;
-		}
-		return true;
+		return "GunLevel";
 	}
 }

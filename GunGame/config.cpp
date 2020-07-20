@@ -7,6 +7,7 @@ class CfgPatches
 		//requiredVersion=0.1;
 		requiredAddons[] =
 		{
+			"JM_CF_Scripts",
 			"DZ_Data"
 		};
 	};
@@ -49,15 +50,3 @@ class CfgMods
 		};
 	};
 };
-
-
-//class CfgMissions
-//{
-//	class MPMissions
-//	{
-//		class GunGame
-//		{
-//
-//		}
-//	};
-//}

@@ -1,7 +1,7 @@
 modded class NotifiersManager
 {
 
-    void NotifiersManager(PlayerBase player)
+   /* void NotifiersManager(PlayerBase player)
 	{
         m_Player = player;
 
@@ -44,4 +44,5 @@ modded class NotifiersManager
             }
         }
     }
+	*/
 }

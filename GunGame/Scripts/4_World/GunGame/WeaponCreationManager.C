@@ -1,11 +1,6 @@
 class WeaponCreationManager : Managed
 {
-    ref array<ref GunLevel> gunLevels;
-	
-    void WeaponCreationManager()
-    {
-       LoadWeapons();
-    }
+    ref array<ref GunLevel> gunLevels = new array<ref GunLevel>();
 	
 
 //############## WEAPONS ##############
@@ -14,19 +9,11 @@ class WeaponCreationManager : Managed
 		gunLevels = newLevels;
 	}
 
-	void LoadWeapons()
-	{
-		gunLevels = new array<ref GunLevel>; 
- 		gunLevels.Insert(new GunLevel("M4A1","Mag_CMAG_30Rnd",{"ACOGOptic","M4_PlasticHndgrd","M4_OEBttstck"}));
-	}
-
     void SetWeapon(PlayerBase player)
     {
         //todo 
         auto gunLevel = gunLevels[player.GetPlayerStats().GetStatObject(EGunGameStats.GUNLEVEL).Get()];
         auto weapon = SetWeapon(player,gunLevel);
-
-		Print("CurrentGun lvl :" + player.GetPlayerStats().GetStatObject(EGunGameStats.GUNLEVEL).Get().ToString());
 
         AddAttachments(weapon,gunLevel);
     }
@@ -40,12 +27,6 @@ class WeaponCreationManager : Managed
     private Weapon_Base SetWeapon(PlayerBase _Player,GunLevel _GunLevel)
     {
         auto humanInventory = _Player.GetHumanInventory();
-		auto entityInHands = GetHumanInventory().GetEntityInHands();
-
-		if(entityInHands)
-		{
-			delete entityInHands;
-		}
 
         auto weapon = Weapon_Base.Cast(humanInventory.CreateInHands( _GunLevel.weapon ));
 		AddMag(_Player,weapon,_GunLevel);
@@ -87,13 +68,6 @@ class WeaponCreationManager : Managed
 	    	return;
 	    }
 
-        //InventoryLocation il = new InventoryLocation;
-	    //il.SetAttachment( _Weapon, NULL, InventorySlots.MAGAZINE );
-	    // using any of the inventory sync for existing spawning magazines also works
-	    // e.g. GameInventory.LocationSyncMoveEntity
-
-	    //EntityAI mag = SpawnEntity( _GunLevel.mag, il, ECE_IN_INVENTORY, RF_DEFAULT );
-
         EntityAI mag = EntityAI.Cast(_Weapon.GetInventory().CreateAttachment(_GunLevel.mag));
 
 	    GetGame().RemoteObjectDelete( mag );
@@ -108,7 +82,6 @@ class WeaponCreationManager : Managed
 
 	    GetGame().RemoteObjectCreate( _Weapon );
 	    GetGame().RemoteObjectCreate( mag );
-
 		_Weapon.SyncSelectionState(true,true);
 		
     }

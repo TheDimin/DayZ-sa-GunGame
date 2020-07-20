@@ -1,5 +1,7 @@
 class LocationManager<Class MapType> : Managed
 {
+	static LocationManager<MapType> instance;
+
    	protected ref array<ref MapType> GamemodeMaps = new array<ref MapType>();
 	ref MapType ActiveMap;
 
@@ -7,13 +9,15 @@ class LocationManager<Class MapType> : Managed
 
     void LocationManager()
     {
+		if(!instance)
+			instance = this;
+
         LoadConfig();
     }
     
-	void LoadConfig()
+	protected void LoadConfig()
 	{
 		protected static const string JSON_FILE_PATH = "$profile:GunGame/MapLocations.json";
-
 		if( !FileExist( JSON_FILE_PATH ) )
 		{
 			//TODO test if this works
@@ -27,6 +31,12 @@ class LocationManager<Class MapType> : Managed
 
 	void SetCurrentMapByIndex(int index)
 	{
+		if(GamemodeMaps.Count() <= 0)
+		{
+			DPrint("Failed to load data");
+			return;
+		}
+
 		ActiveMap = GamemodeMaps[index];
 	}
 	
@@ -38,21 +48,26 @@ class LocationManager<Class MapType> : Managed
     //Internal version that actualy gets a location (mod this when trying to do a different spawn implementation)
     protected Vector2 FindRandomSpawnLocation()
     {
-        Vector2 targetLocation = Utils.StrToVector2(ActiveMap.Locations.Get(nextLocationIndex));
+		if(!ActiveMap)
+		{
+			Print("NO active map found");
+		}
+
+        Vector2 targetLocation = Utils.StrToVector2(ActiveMap.GetLocations().Get(nextLocationIndex));
         nextLocationIndex++;
-        if(nextLocationIndex >= ActiveMap.Locations.Count())
+        if(nextLocationIndex >= ActiveMap.GetLocations().Count())
         {
             nextLocationIndex = 0;
         }
-
+					Print("[LocationManager] GetSpawnPoint called");
         return targetLocation;
     }
 
 	void GetSpawnPoint(PlayerIdentity identity,out vector pos, out float yaw)
 	{
 		yaw = 0; //TODO ?
-
 		Vector2 targetLocation = FindRandomSpawnLocation();
-		pos= Vector(targetLocation.x, 0, targetLocation.y);
+		pos = Vector(targetLocation.x, 0, targetLocation.y);
+		
 	}
 }
