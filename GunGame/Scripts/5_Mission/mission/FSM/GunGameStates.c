@@ -88,7 +88,7 @@ class GGSelectMapState : GunGameStateBase
 
     override void OnUpdate (float dt)
     {
-        CountdownTimer -= dt;
+       //ScriptedWidgetEventHandler CountdownTimer -= dt;
         
         if(CountdownTimer <= 0)
         {
