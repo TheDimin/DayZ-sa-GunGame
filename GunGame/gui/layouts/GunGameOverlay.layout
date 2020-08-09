@@ -91,7 +91,7 @@ FrameWidgetClass rootFrame {
    }
   }
   FrameWidgetClass VotingForMap {
-   visible 1
+   visible 0
    ignorepointer 1
    color 0.0196 0.0196 0.0196 1
    position 0 0
@@ -105,7 +105,7 @@ FrameWidgetClass rootFrame {
    scaled 0
    {
     ImageWidgetClass VotingBackground {
-     visible 0
+     visible 1
      ignorepointer 1
      color 0.3765 0.3765 0.3765 1
      position 0 0
@@ -119,8 +119,9 @@ FrameWidgetClass rootFrame {
     }
     MapWidgetClass VoteMap {
      clipchildren 0
+     ignorepointer 1
      position 15 15
-     size 0.5 0.8
+     size 0.55 0.85
      halign right_ref
      valign bottom_ref
      hexactpos 1
@@ -132,30 +133,32 @@ FrameWidgetClass rootFrame {
     }
     ScrollWidgetClass ScrollWidget0 {
      ignorepointer 0
-     color 0.5569 0.5529 0.5529 1
      position 15 15
-     size 0.3508 0.8
+     size 0.4 0.85
      valign bottom_ref
      hexactpos 1
      vexactpos 1
      hexactsize 0
      vexactsize 0
-     style Colorable
+     style blank
      {
       WrapSpacerWidgetClass VoteSpacer {
        ignorepointer 1
+       color 0 0 0 1
        position 0.01 0.01
        size 0.98 0.98
        hexactpos 0
        vexactpos 0
        hexactsize 0
        vexactsize 0
+       style Outline
        "no focus" 1
        "Ignore invisible" 0
-       Padding 0
-       Margin 8
+       Padding 5
+       Margin 0
        "Size To Content H" 1
        "Size To Content V" 1
+       content_halign center
       }
      }
     }
@@ -209,6 +212,48 @@ FrameWidgetClass rootFrame {
        "size to text h" 1
        "size to text v" 0
        "text valign" center
+      }
+     }
+    }
+   }
+  }
+  FrameWidgetClass InGame {
+   ignorepointer 1
+   position 0 0
+   size 1 1
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   {
+    ScrollWidgetClass DebugScrollWidget {
+     ignorepointer 0
+     position 10.2196 130.44299
+     size 0.15881 0.85
+     valign bottom_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style blank
+     {
+      WrapSpacerWidgetClass DebugSpacer {
+       ignorepointer 1
+       color 0 0 0 1
+       position 1 5
+       size 0.98 0.98
+       hexactpos 1
+       vexactpos 1
+       hexactsize 0
+       vexactsize 0
+       style Outline
+       "no focus" 1
+       "Ignore invisible" 0
+       Padding 5
+       Margin 0
+       "Size To Content H" 1
+       "Size To Content V" 1
+       content_halign center
       }
      }
     }

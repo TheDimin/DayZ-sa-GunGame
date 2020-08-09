@@ -34,13 +34,13 @@ class LevelKillStat extends PlayerStatBase
             return -1;
         }
 
-		if(m_GunGameManager.gunLevels.Count() < m_GunLevelStat.Get())
+		if(LocationManager<GunGameLocation>.instance.ActiveMap.Weapons.Count() < m_GunLevelStat.Get())
 		{
 			Error2("GunGame","Gun lvl is out of range");
 			return -1;
 		}
 
-        return m_GunGameManager.gunLevels[m_GunLevelStat.Get()].GetRequiredKills();
+        return LocationManager<GunGameLocation>.instance.ActiveMap.Weapons[m_GunLevelStat.Get()].GetRequiredKills();
     }
 
 	override float Get()

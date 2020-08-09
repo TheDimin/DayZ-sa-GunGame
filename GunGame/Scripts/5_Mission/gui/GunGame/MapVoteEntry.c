@@ -1,63 +1,45 @@
-typedef Param1<array<MapVoteInfo>> MapsVoteInfoParam;
-///Information about a specific map that will be replicated to clients
-class MapVoteInfo : Managed
-{
-    string name = "null";
-    vector location = "0 0 0";
-    int count = 0;
-
-    void MapVoteInfo(string Name, vector Location,int Count)
-    {
-        name = Name;
-        location = Location;
-        count = Count;
-    }
-}
-
 /// Widget element representing a map that can be voted for
 class MapVoteEntry extends ScriptedWidgetEventHandler
 {
-    protected ref Widget root;
+    ref Widget root;
 
     protected ref TextWidget displayName;
     protected ref TextWidget displayCount;
 
     protected ref MapVoteInfo M_Data;
 
-    protected ref IngameHud M_Owner;
+    protected ref GunGameHud M_Owner;
+    protected int M_Index;
 
-    void MapVoteEntry( Widget parent,IngameHud owner, MapVoteInfo data )
+
+    void OnWidgetScriptInit(Widget layoutRoot)
 	{
-        M_Data = data;
-        M_Owner = owner;
+        root = layoutRoot;
         
-        root = GetGame().GetWorkspace().CreateWidgets( "GunGame/gui/layouts/Elements/MapVoteInfo.layout", parent );
+        root.SetHandler( this );
 
         displayName = TextWidget.Cast(root.FindAnyWidget("VoteName"));
         displayCount = TextWidget.Cast(root.FindAnyWidget("VoteCount"));
-        
+    }
+
+    void SetData(GunGameHud owner,MapVoteInfo data,int index )
+    {
+        M_Data = data;
+        M_Owner = owner;
+        M_Index = index;
+
         displayName.SetText(M_Data.name);
         displayCount.SetText(M_Data.count.ToString());
-
-        root.SetHandler( this );
     }
-
-
-
-    override bool OnClick( Widget w, int x, int y, int button )
-	{
-        Print("OnClick called");
-        if(w == root)
-        {
-            Print("Widget was clicked");
-            return false;
-        }
-        return false;
-    }
-
-    bool OnUpdate(Widget w)
+     
+    bool OnDoubleClick(Widget w, int x, int y, int button)
     {
-        Print("BullshitUpdate Called");
+        if(w == root)
+        {//void SendRPC( string modName, string funcName, ref Param params = NULL, bool guaranteed = false, ref PlayerIdentity sendToIdentity = NULL, ref Object sendToTarget = NULL )
+            GetRPCManager().SendRPC("GunGame","SRpcVoteForMap",new Param1<int>(M_Index),true,null,GetGame().GetPlayer());
+            root.SetColor(Colors.GREEN);
+        }
+        Print("OnDubbleClickCalled");
         return false;
     }
 
@@ -74,15 +56,5 @@ class MapVoteEntry extends ScriptedWidgetEventHandler
     void Focus()
     {
         M_Owner.SetVotingMapPos(M_Data);
-    }
-
-    override bool OnDoubleClick( Widget w, int x, int y, int button )
-	{
-        return false;
-    }
-
-    override bool OnSelect(Widget w, int x, int y)
-    {
-        return false;
     }
 }

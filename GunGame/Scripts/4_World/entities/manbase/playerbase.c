@@ -1,5 +1,46 @@
+const int GunGameRespawn = 9984;
 modded class PlayerBase
 {   
+    int MapVote = -1;
+
+    void PlayerBase()
+    {
+        GetDayZGame().GunGameStateChange.Insert(OnGameStateChange);
+    }
+
+    void OnGameStateChange(int value)
+    {
+        switch (value)
+        {
+            case 2:
+            {
+                MapVote = -1;
+            }
+            break;
+        }
+    }
+
+    //Hack for respawninging
+    void GunGameRespawn()
+    {
+        if(!GetGame().IsServer())
+            return;
+        	//GetMission().OnEvent(GunGameRespawn, Param1<PlayerBase> );
+
+        //TODO Kill EEKILLED
+        //TODO Heal player
+
+        vector location;
+        float yaw;
+        LocationManager<GunGameLocation>.instance.GetSpawnPoint(null,location,yaw);
+
+        PlaceOnSurface();
+        SetPosition(location);
+        SetOrientation(Vector(0,yaw,0));
+
+        
+    }
+
     override bool CanJump()
 	{
         if(GetGame().IsServer())
@@ -38,6 +79,20 @@ modded class PlayerBase
     }
 
     //SetHealth(0);
+
+    override void OnItemInHandsChanged ()
+	{
+		super.OnItemInHandsChanged();
+        if(GetItemAccessor().IsItemInHandsWeapon())
+        {
+            Print("Player holds weapon in hands");
+            auto weapon = Weapon_Base.Cast(GetItemInHands());
+            //TODO show mag
+            //	proto native void SelectionMagazineShow ();?
+            //weapon.HideWeaponBarrel(false);
+            weapon.ShowMagazine();
+        }
+	}
 
 #ifndef GG_Debug
     override bool IsInventoryVisible()

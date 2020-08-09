@@ -33,20 +33,44 @@ class CfgMods
 			class gameScriptModule
 			{
 				value = "";
-				files[] = { "GunGame/Scripts/3_Game" };
+				files[] = 
+				{ 
+					"GunGame/Scripts/Definitions",
+					"GunGame/Temp/3_Game",
+					"GunGame/Scripts/3_Game" 
+				};
 			};
 
 			class worldScriptModule
 			{
 				value = "";
-				files[] = { "GunGame/Scripts/4_World" };
+				files[] = 
+				{
+					"GunGame/Scripts/Definitions",
+					"GunGame/Temp/4_World",
+					"GunGame/Scripts/4_World" 
+				};
 			};
 
 			class missionScriptModule
 			{
 				value = "";
-				files[] = { "GunGame/Scripts/5_Mission" };
+				files[] = 
+				{ 
+					"GunGame/Scripts/Definitions",
+					"GunGame/Temp/5_Mission",
+					"GunGame/Scripts/5_Mission"
+				};
 			};
+			class blueprintScriptModule
+			{
+				value = "";
+				files[] =
+				{
+					"C:/Users/DPHoo/Documents/DayZ Other Profiles/Temp",
+				
+				};
+			}
 		};
 	};
 };

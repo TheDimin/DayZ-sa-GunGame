@@ -24,6 +24,8 @@ class GunGameFSM : FSMBase<GunGameStateBase, GunGameEventBase, GunGameActionBase
 		if(super.ProcessLocalTransition(t,e) == ProcessEventResult.FSM_OK)
 		{
 			GetRPCManager().SendRPC( "GunGame", "RpcOnStateChange", new Param1< int >( m_state.GetStateId() ), true );
+			if(GetGame().IsServer())
+				GetDayZGame().GunGameStateChange.Invoke(m_state.GetStateId());
 			return ProcessEventResult.FSM_OK;
 		}
 

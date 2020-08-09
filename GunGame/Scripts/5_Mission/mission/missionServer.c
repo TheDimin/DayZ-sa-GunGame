@@ -7,9 +7,8 @@ modded class MissionServer
 	{
 		super.OnInit();
 
-        GetDayZGame().GunGameLoadConfig();
-
-        auto eventOnPlayerKilledByPlayer = SyncEvents.GetEventOnPlayerKilledByPlayer();
-        eventOnPlayerKilledByPlayer.Insert(OnPlayerKilledByPlayer);
+        //auto eventOnPlayerKilledByPlayer = ;
+        SyncEvents.GetEventOnPlayerKilledByPlayer().Insert(OnPlayerKilledByPlayer);
     }
+    
 }

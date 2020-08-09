@@ -1,0 +1,44 @@
+PanelWidgetClass rootFrame {
+ position 0 0
+ size 400 50
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ fixaspect inside
+ {
+  ImageWidgetClass Icon {
+   ignorepointer 1
+   size 50 1
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 0
+   fixaspect fixwidth
+   image0 "set:dayz_gui image:continuous_action_mouse_part"
+   mode additive
+   "src alpha" 1
+   "no wrap" 0
+  }
+  EditBoxWidgetClass TextWidget0 {
+   clipchildren 1
+   ignorepointer 0
+   keepsafezone 0
+   position 50 -0.532
+   size 350 1
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 0
+   scaled 0
+   style DefaultBorder
+   text "TEMP TEXT"
+   "limit visible" 0
+   "Default text color" 0.2863 0.2863 0.2863 1
+   "Use default text" 1
+   "exact text" 0
+  }
+ }
+}

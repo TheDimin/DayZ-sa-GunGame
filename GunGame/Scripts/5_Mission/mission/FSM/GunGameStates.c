@@ -76,13 +76,16 @@ class GGSelectMapState : GunGameStateBase
     ref array<int> votes;
     int totalVotes;
 
-    ref array<Man> m_Players = new array<Man>();
-
     override void OnEntry (GunGameEventBase e)
     {
         super.OnEntry(e);
         CountdownTimer = 60;
         votes = new array<int>();
+        int totalMapCount = LocationManager<GunGameLocation>.instance.GameModeMapCount();
+        for (int i = 0; i < totalMapCount; i++)
+        {
+            votes.Insert(0);
+        }
         totalVotes = 0;
     }
 
@@ -94,19 +97,26 @@ class GGSelectMapState : GunGameStateBase
         {
             ChangeState(new MapVoteEndedEvent(votes));
             return;
-        }
+        } 
+    }
 
+    void RegisterVote(int index)
+    {
+        votes[index] = (votes[index] + 1); // If its out of range it doesn't throw a error
+        totalVotes++;
+
+        ref array<Man> m_Players = new array<Man>();
         GetGame().GetWorld().GetPlayerList(m_Players);
-        if(totalVotes >= m_Players.Count())
+        if(totalVotes >= m_Players.Count() && m_Players.Count() != 0)
         {
             ChangeState(new MapVoteEndedEvent(votes));
         }
     }
 
-    void RegisterVote(int index)
+    void RemoveVote(int index)
     {
-        votes[index] = (votes[index] + 1);
-        totalVotes++;
+        votes[index] = (votes[index] - 1);
+        totalVotes--;
     }
 
     override int GetStateId()
@@ -121,6 +131,19 @@ class GGPlayingState : GunGameStateBase
     {
         auto ce = MapVoteEndedEvent.Cast(e);
         LocationManager<GunGameLocation>.instance.SetCurrentMapByIndex(ce.targetMap);
+
+        ref array<Man> m_Players = new array<Man>();
+        GetGame().GetWorld().GetPlayerList(m_Players);
+
+        foreach (auto player : m_Players)
+        {
+            PlayerBase pb = PlayerBase.Cast(player);
+
+            pb.GunGameRespawn();
+
+            WeaponCreationManager.instance.SetWeapon(pb);
+        }
+
     }
 
     override int GetStateId()

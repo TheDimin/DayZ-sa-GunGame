@@ -1,7 +1,7 @@
 class MapLocation : Managed
 {
     string LocationName = "Null";
-    protected ref array<string> SpawnPoints = new array<string>();
+    ref array<string> SpawnPoints = new array<string>();
 
     array<string> GetLocations()
     {
