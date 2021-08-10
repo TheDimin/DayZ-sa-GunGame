@@ -19,8 +19,8 @@
             "type": "shell",
             "command": "E:/GameLaunchers/Steam/steamapps/common/DayZ Tools/Bin/AddonBuilder/AddonBuilder.exe",
             "args": [
-                "P:/GunGame/GunGame",
-                "P:/GunGame/@GunGame/Addons",
+                "P:/GunGame",
+                "P:/PBOS/@GunGame/Addons",
                 "-clear",
                 "-sign=P:/GunGame/Tools/Keys/TheDiminGunGamePKEY.biprivatekey",
                 "-include=P:/GunGame/Tools/Includes.txt"
@@ -28,7 +28,7 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
+            }, 
             "dependsOn": [
                 "Kill dayz"
             ]
@@ -40,9 +40,14 @@
             "args": [
                 "-config=P:\\GunGame\\Tools\\serverDZ.cfg",
                 "-server",
-                "-profiles=C:\\Users\\DPHoo\\Documents\\DayZ Other Profiles",
-                "-mission=P:/GunGame/GunGame.chernarusplus",
-                "-mod=C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/!dzsal/@CF;P:/GunGame/@GunGame;"
+                "-doLogs",
+                "-forcedebugger",
+                "-scriptDebug=true",
+                "-noPause",
+                "-scrAllowFileWrite",
+                "-profiles=C:\\Users\\DPHoo\\Documents\\DayZ Other Profiles\\Server",
+                "-mission=P:/GunGame/Maps/GunGame.chernarusplus",
+                "-mod=C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/!dzsal/@CF;P:/PBOS/@GunGame;"
             ],
             "group": "none",
             "problemMatcher": []
@@ -55,8 +60,11 @@
                 //"-filepatching",
                 "-window",
                 "-noPause",
+                "forcedebugger",
+                "-scriptDebug=true",
+                "-dologs",
                 "-nosplash",
-                "-mod=C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/!dzsal/@CF;P:/GunGame/@GunGame;",
+                "-mod=C:/Program Files (x86)/SteamGames/steamapps/common/DayZ/!dzsal/@CF;P:/PBOS/@GunGame;",
                 "-connect=localhost",
                 "-port=2302"
             ],
